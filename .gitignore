@@ -1,0 +1,54 @@
+########################################
+# 🧠 Backend (Spring Boot)
+########################################
+backend/target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+.mvn/
+!backend/mvnw
+!backend/mvnw.cmd
+
+########################################
+# 🧠 Frontend (React)
+########################################
+frontend/node_modules/
+frontend/build/
+frontend/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+########################################
+# 🧠 IntelliJ / VSCode
+########################################
+.idea/
+*.iml
+out/
+.vscode/
+
+########################################
+# 🐳 Docker
+########################################
+docker/.env
+docker-compose.override.yml
+docker-compose.dev.yml
+docker-compose.local.yml
+
+########################################
+# 💻 OS
+########################################
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+########################################
+# ⚙️ 기타
+########################################
+*.tmp
+*.bak
+*.swp
+*.swo
