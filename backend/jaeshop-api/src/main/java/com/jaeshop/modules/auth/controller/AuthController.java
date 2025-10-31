@@ -3,9 +3,10 @@ package com.jaeshop.modules.auth.controller;
 import com.jaeshop.global.response.ApiResponse;
 import com.jaeshop.modules.auth.dto.LoginRequest;
 import com.jaeshop.modules.auth.dto.RefreshTokenRequest;
-import com.jaeshop.modules.auth.dto.TokenResponse;
+import com.jaeshop.modules.auth.dto.TokenPairResponse;
 import com.jaeshop.modules.auth.service.AuthService;
 import com.jaeshop.modules.user.dto.UserResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,8 +26,14 @@ public class AuthController {
     }
 
     @PostMapping("/refresh")
-    public ApiResponse<TokenResponse> refresh(@RequestBody RefreshTokenRequest req) {
+    public ApiResponse<TokenPairResponse> refresh(@RequestBody @Valid RefreshTokenRequest req) {
         return ApiResponse.ok(authService.refreshToken(req));
+    }
+
+    @PostMapping("/logout")
+    public ApiResponse<Void> logout(@RequestBody RefreshTokenRequest req) {
+        authService.logout(req);
+        return ApiResponse.ok();
     }
 
 }

@@ -7,6 +7,8 @@ public interface AuthService {
 
     UserResponse login(LoginRequest req);
 
-    TokenResponse refreshToken(RefreshTokenRequest req);
+    TokenPairResponse refreshToken(RefreshTokenRequest req);
+
+    void logout(RefreshTokenRequest req);
 
 }

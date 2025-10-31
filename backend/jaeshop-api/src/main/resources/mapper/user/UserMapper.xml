@@ -16,4 +16,11 @@
         VALUES (#{email}, #{password}, #{name}, #{phone})
     </insert>
 
+    <select id="findById" resultType="com.jaeshop.modules.user.domain.User">
+        SELECT id, email, password, name, phone, role, status
+        FROM users
+        WHERE id = #{id}
+        LIMIT 1
+    </select>
+
 </mapper>
