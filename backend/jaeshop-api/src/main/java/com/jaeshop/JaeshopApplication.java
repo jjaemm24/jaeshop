@@ -1,13 +1,13 @@
-package com.jaeshop.api;
+package com.jaeshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JaeshopApiApplication {
+public class JaeshopApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(JaeshopApiApplication.class, args);
+		SpringApplication.run(JaeshopApplication.class, args);
 	}
 
 }

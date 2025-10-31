@@ -1,4 +1,4 @@
-package com.jaeshop.api.controller;
+package com.jaeshop.modules.user.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

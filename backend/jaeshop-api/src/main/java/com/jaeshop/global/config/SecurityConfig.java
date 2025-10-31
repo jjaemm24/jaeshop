@@ -1,4 +1,4 @@
-package com.jaeshop.api.config;
+package com.jaeshop.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
