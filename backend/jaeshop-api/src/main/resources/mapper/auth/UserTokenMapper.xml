@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jaeshop.modules.auth.mapper.UserTokenMapper">
+
+    <update id="revokeTokens">
+        UPDATE user_tokens
+        SET revoked = true
+        WHERE user_id = #{userId}
+        AND revoked = false
+    </update>
+
+    <insert id="saveRefreshToken">
+        INSERT INTO user_tokens (user_id, refresh_token, refresh_token_expires_at, access_token)
+        VALUES (#{userId}, #{refreshToken}, #{expiresAt}, #{accessToken})
+    </insert>
+
+    <select id="findValidToken" resultType="string">
+        SELECT refresh_token
+        FROM user_tokens
+        WHERE refresh_token = #{refreshToken}
+        AND revoked = false
+        AND refresh_token_expires_at > NOW()
+        LIMIT 1
+    </select>
+
+</mapper>

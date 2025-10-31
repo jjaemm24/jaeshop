@@ -16,10 +16,4 @@
         VALUES (#{email}, #{password}, #{name}, #{phone})
     </insert>
 
-    <select id="findById" resultType="com.jaeshop.modules.user.domain.User">
-        SELECT *
-        FROM users
-        WHERE id = #{id}
-    </select>
-
 </mapper>
