@@ -10,8 +10,13 @@ public enum ErrorCode {
 
     // 400 Bad Request
     INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "잘못된 요청 값입니다."),
+
     DUPLICATE_EMAIL(HttpStatus.BAD_REQUEST, "이미 사용중인 이메일입니다."),
     PASSWORD_MISMATCH(HttpStatus.BAD_REQUEST, "비밀번호가 일치하지 않습니다."),
+
+    CATEGORY_NOT_FOUND(HttpStatus.BAD_REQUEST, "카테고리를 찾을 수 없습니다."),
+    INVALID_CATEGORY_PARENT(HttpStatus.BAD_REQUEST, "유효하지 않은 상위 카테고리입니다."),
+    DUPLICATE_CATEGORY_NAME(HttpStatus.BAD_REQUEST, "이미 사용중인 카테고리명입니다."),
 
     // 401 Unauthorized
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "인증이 필요합니다."),

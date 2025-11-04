@@ -1,12 +1,12 @@
 package com.jaeshop.modules.auth.domain;
 
+import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
+@Builder
 public class UserToken {
     private Long id;
     private Long userId;

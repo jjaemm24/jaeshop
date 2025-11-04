@@ -27,11 +27,12 @@ public class UserServiceImpl implements UserService{
 
         String encodedPassword = BCrypt.hashpw(request.getPassword(), BCrypt.gensalt());
 
-        User user = new User();
-        user.setEmail(request.getEmail());
-        user.setPassword(encodedPassword);
-        user.setName(request.getName());
-        user.setPhone(request.getPhone());
+        User user = User.builder()
+                .email(request.getEmail())
+                .password(encodedPassword)
+                .name(request.getName())
+                .phone(request.getPhone())
+                .build();
 
         userMapper.saveUser(user);
 

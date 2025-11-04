@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jaeshop.modules.category.mapper.CategoryMapper">
+
+    <insert id="save">
+        INSERT INTO categories (parent_id, name, level, sort_order, is_active)
+        VALUES (#{parentId}, #{name}, #{level}, #{sortOrder}, #{isActive})
+    </insert>
+
+    <select id="findById" resultType="com.jaeshop.modules.category.domain.Category">
+        SELECT * FROM categories
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.jaeshop.modules.category.domain.Category">
+        SELECT * FROM categories
+        ORDER BY sort_order ASC
+    </select>
+
+    <select id="findByParentId" resultType="com.jaeshop.modules.category.domain.Category">
+        SELECT * FROM categories
+        WHERE parent_id = #{parentId}
+        ORDER BY sort_order ASC
+    </select>
+
+    <update id="update">
+        UPDATE categories
+        SET name = #{name},
+            sort_order = #{sortOrder},
+            is_active = #{isActive},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM categories
+        WHERE id = #{id}
+    </delete>
+
+    
+</mapper>
