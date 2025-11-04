@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jaeshop.modules.product.mapper.ProductMapper">
+
+    <resultMap id="ProductResultMap" type="com.jaeshop.modules.product.domain.Product">
+        <id     property="id"            column="id"/>
+        <result property="categoryId"    column="category_id"/>
+        <result property="name"          column="name"/>
+        <result property="description"   column="description"/>
+        <result property="originalPrice" column="original_price"/>
+        <result property="salePrice"     column="sale_price"/>
+        <result property="stock"         column="stock"/>
+        <result property="status"        column="status"/>
+        <result property="brand"         column="brand"/>
+        <result property="modelCode"     column="model_code"/>
+        <result property="createdAt"     column="created_at"/>
+        <result property="updatedAt"     column="updated_at"/>
+    </resultMap>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO products (
+        category_id, name, description,
+        original_price, sale_price, stock,
+        status, brand, model_code,
+        created_at, updated_at
+        )
+        VALUES (
+        #{categoryId}, #{name}, #{description},
+        #{originalPrice}, #{salePrice}, #{stock},
+        #{status}, #{brand}, #{modelCode},
+        NOW(), NOW()
+        )
+    </insert>
+
+    <select id="findById" resultMap="ProductResultMap">
+        SELECT * FROM products WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="ProductResultMap">
+        SELECT * FROM products ORDER BY id DESC
+    </select>
+
+    <update id="update">
+        UPDATE products
+        SET name = #{name},
+        description = #{description},
+        original_price = #{originalPrice},
+        sale_price = #{salePrice},
+        stock = #{stock},
+        status = #{status},
+        brand = #{brand},
+        model_code = #{modelCode},
+        updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM products WHERE id = #{id}
+    </delete>
+
+    <select id="findByModelCode" resultMap="ProductResultMap">
+        SELECT * FROM products WHERE model_code = #{modelCode}
+    </select>
+
+</mapper>
