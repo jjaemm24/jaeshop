@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.jaeshop.modules.image.mapper.ProductImageMapper">
+
+    <insert id="save" parameterType="com.jaeshop.modules.image.domain.ProductImage">
+        INSERT INTO product_images (product_id, image_url, is_thumbnail, sort_order)
+        VALUES (#{productId}, #{imageUrl}, #{isThumbnail}, #{sortOrder});
+    </insert>
+
+    <select id="findByProductId" resultType="com.jaeshop.modules.image.domain.ProductImage">
+        SELECT *
+        FROM product_images
+        WHERE product_id = #{productId}
+        ORDER BY sort_order ASC;
+    </select>
+
+</mapper>

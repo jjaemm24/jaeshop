@@ -4,6 +4,9 @@ import com.jaeshop.global.exception.CustomException;
 import com.jaeshop.global.exception.ErrorCode;
 import com.jaeshop.global.response.PageResponse;
 import com.jaeshop.modules.category.mapper.CategoryMapper;
+import com.jaeshop.modules.image.domain.ProductImage;
+import com.jaeshop.modules.image.dto.ProductImageResponse;
+import com.jaeshop.modules.image.mapper.ProductImageMapper;
 import com.jaeshop.modules.product.domain.Product;
 import com.jaeshop.modules.product.dto.ProductRequest;
 import com.jaeshop.modules.product.dto.ProductResponse;
@@ -23,6 +26,7 @@ public class ProductServiceImpl implements ProductService{
 
     private final ProductMapper productMapper;
     private final CategoryMapper categoryMapper;
+    private final ProductImageMapper productImageMapper;
 
     @Override
     public Long createProduct(ProductRequest req) {
@@ -141,6 +145,19 @@ public class ProductServiceImpl implements ProductService{
     }
 
     private ProductResponse toResponse(Product p) {
+
+        // 🔹 해당 상품의 이미지 조회
+        List<ProductImage> images = productImageMapper.findByProductId(p.getId());
+
+        List<ProductImageResponse> imageResponses = images.stream()
+                .map(i -> ProductImageResponse.builder()
+                        .id(i.getId())
+                        .url(i.getImageUrl())
+                        .isThumbnail(i.getIsThumbnail())
+                        .sortOrder(i.getSortOrder())
+                        .build()
+                ).toList();
+
         return ProductResponse.builder()
                 .id(p.getId())
                 .categoryId(p.getCategoryId())
@@ -152,6 +169,7 @@ public class ProductServiceImpl implements ProductService{
                 .status(p.getStatus())
                 .brand(p.getBrand())
                 .modelCode(p.getModelCode())
+                .images(imageResponses)
                 .build();
     }
 

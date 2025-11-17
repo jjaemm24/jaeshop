@@ -1,7 +1,10 @@
 package com.jaeshop.modules.product.dto;
 
+import com.jaeshop.modules.image.dto.ProductImageResponse;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @Builder
@@ -16,4 +19,5 @@ public class ProductResponse {
     private String status;
     private String brand;
     private String modelCode;
+    private List<ProductImageResponse> images;
 }
