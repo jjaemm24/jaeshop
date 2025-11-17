@@ -2,10 +2,12 @@ package com.jaeshop.modules.product.service;
 
 import com.jaeshop.global.exception.CustomException;
 import com.jaeshop.global.exception.ErrorCode;
+import com.jaeshop.global.response.PageResponse;
 import com.jaeshop.modules.category.mapper.CategoryMapper;
 import com.jaeshop.modules.product.domain.Product;
 import com.jaeshop.modules.product.dto.ProductRequest;
 import com.jaeshop.modules.product.dto.ProductResponse;
+import com.jaeshop.modules.product.dto.ProductSearchRequest;
 import com.jaeshop.modules.product.mapper.ProductMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -109,6 +111,23 @@ public class ProductServiceImpl implements ProductService{
 
         // 실제 삭제 (나중에 soft-delete로 바꿔도 됨)
         productMapper.delete(id);
+    }
+
+    @Override
+    public PageResponse<ProductResponse> searchProducts(ProductSearchRequest req) {
+        int total = productMapper.count(req);
+
+        if (total == 0) {
+            return PageResponse.empty(req.getPage(), req.getSize());
+        }
+
+        List<Product> products = productMapper.search(req);
+
+        List<ProductResponse> content = products.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
+
+        return PageResponse.of(content, req.getPage(), req.getSize(), total);
     }
 
     // ====== private helpers ======

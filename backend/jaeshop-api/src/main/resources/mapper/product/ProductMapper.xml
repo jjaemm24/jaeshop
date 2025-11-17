@@ -65,4 +65,63 @@
         SELECT * FROM products WHERE model_code = #{modelCode}
     </select>
 
+    <sql id="product_columns">
+        p.id, p.category_id, p.name, p.description,
+        p.original_price, p.sale_price, p.stock, p.status,
+        p.brand, p.model_code, p.created_at, p.updated_at
+    </sql>
+
+    <select id="search" resultType="com.jaeshop.modules.product.domain.Product">
+        SELECT
+        <include refid="product_columns" />
+        FROM products p
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND p.name LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="categoryId != null">
+            AND p.category_id = #{categoryId}
+        </if>
+        <if test="brand != null and brand == ''">
+            AND p.brand = #{brand}
+        </if>
+        <if test="minPrice != null">
+            AND p.original_price &gt;= #{minPrice}
+        </if>
+        <if test="maxPrice != null">
+            AND p.original_price &lt;= #{maxPrice}
+        </if>
+
+        <choose>
+            <when test="sort == 'price_asc'"> ORDER BY p.original_price ASC </when>
+            <when test="sort == 'price_desc'"> ORDER BY p.original_price DESC </when>
+            <when test="sort == 'name_asc'"> ORDER BY p.name ASC </when>
+            <when test="sort == 'name_desc'"> ORDER BY p.name DESC </when>
+            <otherwise> ORDER BY p.created_at DESC </otherwise>
+        </choose>
+
+        LIMIT #{size} OFFSET #{offset}
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT COUNT(*)
+        FROM products p
+        WHERE 1 = 1
+        <if test="keyword != null and keyword != ''">
+            AND p.name LIKE CONCAT('%', #{keyword}, '%')
+        </if>
+        <if test="categoryId != null">
+            AND p.category_id = #{categoryId}
+        </if>
+        <if test="brand != null and brand != ''">
+            AND p.brand = #{brand}
+        </if>
+        <if test="minPrice != null">
+            AND p.original_price &gt;= #{minPrice}
+        </if>
+        <if test="maxPrice != null">
+            AND p.original_price &lt;= #{maxPrice}
+        </if>
+    </select>
+
 </mapper>
